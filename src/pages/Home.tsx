@@ -107,14 +107,16 @@ const Home = () => {
         transition={{ duration: 0.8, delay: 0.4 }}
         className="w-full max-w-md bg-slate-900/40 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/10 p-6 flex flex-col items-center gap-6 relative z-10 mb-12"
       >
-        <Link 
-          to="/sos"
-          className="w-full h-36 bg-gradient-to-br from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white rounded-2xl flex flex-col items-center justify-center gap-2 shadow-lg shadow-red-600/40 transition-all active:scale-95 hover:shadow-2xl hover:shadow-red-500/50"
-          aria-label="Hold to speak emergency"
-        >
-          <Mic size={48} className="animate-pulse" />
-          <span className="font-extrabold text-xl tracking-widest">HOLD TO SPEAK</span>
-        </Link>
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full">
+          <Link 
+            to="/sos"
+            className="w-full h-36 bg-gradient-to-br from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white rounded-2xl flex flex-col items-center justify-center gap-2 shadow-lg shadow-red-600/40 transition-all hover:shadow-2xl hover:shadow-red-500/50"
+            aria-label="Hold to speak emergency"
+          >
+            <Mic size={48} className="animate-pulse" />
+            <span className="font-extrabold text-xl tracking-widest">HOLD TO SPEAK</span>
+          </Link>
+        </motion.div>
 
         <div className="flex items-center w-full gap-4 opacity-50">
           <div className="h-px bg-slate-500 flex-1"></div>
@@ -122,31 +124,35 @@ const Home = () => {
           <div className="h-px bg-slate-500 flex-1"></div>
         </div>
 
-        <Link 
-          to="/sos"
-          className="w-full py-4 border border-white/20 hover:border-white/40 rounded-xl flex justify-center items-center font-semibold text-white transition bg-white/5 hover:bg-white/10 shadow-sm backdrop-blur-sm"
-        >
-          Type emergency description
-        </Link>
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full">
+          <Link 
+            to="/sos"
+            className="w-full py-4 border border-white/20 hover:border-white/40 rounded-xl flex justify-center items-center font-semibold text-white transition bg-white/5 hover:bg-white/10 shadow-sm backdrop-blur-sm"
+          >
+            Type emergency description
+          </Link>
+        </motion.div>
 
         <div className="w-full grid grid-cols-2 gap-4">
-          <button className="py-3 bg-slate-800/60 border border-white/10 shadow-sm rounded-xl flex items-center justify-center gap-2 text-slate-200 font-medium hover:bg-slate-700/60 transition active:scale-95 backdrop-blur-sm">
+          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="py-3 bg-slate-800/60 border border-white/10 shadow-sm rounded-xl flex items-center justify-center gap-2 text-slate-200 font-medium hover:bg-slate-700/60 transition backdrop-blur-sm">
             <MapPin size={20} className="text-blue-400" />
             Location ON
-          </button>
-          <button className="py-3 bg-slate-800/60 border border-white/10 shadow-sm rounded-xl flex items-center justify-center gap-2 text-slate-200 font-medium hover:bg-slate-700/60 transition active:scale-95 backdrop-blur-sm">
+          </motion.button>
+          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="py-3 bg-slate-800/60 border border-white/10 shadow-sm rounded-xl flex items-center justify-center gap-2 text-slate-200 font-medium hover:bg-slate-700/60 transition backdrop-blur-sm">
             <Camera size={20} className="text-purple-400" />
             Analyze Image
-          </button>
+          </motion.button>
         </div>
         
-        <Link 
-          to="/sos"
-          className="w-full py-4 bg-slate-100 hover:bg-white text-slate-900 rounded-xl flex justify-center items-center gap-2 font-black text-xl shadow-md transition-all active:scale-95 hover:shadow-xl"
-        >
-          <AlertCircle size={28} className="text-red-600" />
-          GET HELP NOW
-        </Link>
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full mt-2">
+          <Link 
+            to="/sos"
+            className="w-full py-5 bg-slate-100 hover:bg-white text-slate-900 rounded-2xl flex justify-center items-center gap-2 font-black text-xl shadow-lg transition-all hover:shadow-2xl"
+          >
+            <AlertCircle size={28} className="text-red-600" />
+            INITIALIZE EMERGENCY SEQUENCE
+          </Link>
+        </motion.div>
       </motion.div>
     </div>
   );
