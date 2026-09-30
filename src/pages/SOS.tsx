@@ -54,14 +54,16 @@ const SOS = () => {
   const [showCamera, setShowCamera] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const recognitionRef = useRef<any>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
-  const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-  const recognition = SpeechRecognition ? new (SpeechRecognition as any)() : null;
+  useEffect(() => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
 
-  if (recognition) {
+    const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.onresult = (event: any) => {
@@ -77,9 +79,16 @@ const SOS = () => {
     };
     recognition.onerror = () => setIsListening(false);
     recognition.onend = () => setIsListening(false);
-  }
+    recognitionRef.current = recognition;
+
+    return () => {
+      recognition.stop();
+      recognitionRef.current = null;
+    };
+  }, []);
 
   const toggleListen = () => {
+    const recognition = recognitionRef.current;
     if (!recognition) {
       setError('Voice input is not supported by this browser. Please use text input.');
       return;
@@ -205,9 +214,9 @@ const SOS = () => {
     try {
       await api.post('/sos', {
         ...analysis,
-        latitude: location?.latitude || null,
-        longitude: location?.longitude || null,
-        location_accuracy: location?.accuracy || null
+        latitude: location?.latitude ?? null,
+        longitude: location?.longitude ?? null,
+        location_accuracy: location?.accuracy ?? null
       });
       navigate('/dashboard');
     } catch (err) {
@@ -408,7 +417,7 @@ const SOS = () => {
             <div>
               <h2 className="text-3xl font-extrabold text-white mb-2">Send SOS?</h2>
               <p className="text-slate-400 font-medium text-sm leading-relaxed">
-                This will immediately broadcast an emergency alert to your contacts and local authorities.
+                This will create an emergency alert in your SafeHelp dashboard.
               </p>
             </div>
             <div className="flex flex-col gap-4">

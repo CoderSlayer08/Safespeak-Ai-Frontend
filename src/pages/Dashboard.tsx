@@ -172,7 +172,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="relative z-10 flex flex-wrap gap-4 items-center justify-between">
-                  {ev.latitude && ev.longitude ? (
+                  {ev.latitude != null && ev.longitude != null ? (
                     <motion.a 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
